@@ -5,6 +5,7 @@ import { Card, Col, Row } from "antd";
 import OnMap from "./map/OnMap";
 import Search from "./search";
 import DragAndDrop from "../components/dragAndDrop";
+import Info from "../components/info";
 
 const Aufgabe = () => {
   return (
@@ -21,12 +22,14 @@ const Aufgabe = () => {
           </Card>
         </Col>
         <Col span={12}>
-          <Card bordered={true}>
+          <Card bordered={true} title="Map">
             <OnMap />
           </Card>
         </Col>
         <Col span={12}>
-          <Card bordered={true}>Card content</Card>
+          <Card bordered={true} title="Haltestelle Info">
+            <Info />
+          </Card>
         </Col>
       </Row>
     </div>

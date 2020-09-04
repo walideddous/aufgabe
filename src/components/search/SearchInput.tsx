@@ -4,7 +4,7 @@ import { Input } from "antd";
 //Redux
 import { connect, ConnectedProps } from "react-redux";
 
-// Types declqrqtion
+// Types declaration
 interface SearchState {
   search: string;
 }
@@ -21,12 +21,14 @@ const SearchInput = ({ searchData }: PropsFromRedux) => {
   // To change the type of "e" => SyntheticEvent
   const handleChange = (e: any) => {
     setSearch(e.target.value);
+    searchData(search);
   };
 
   return (
     <div>
       <Search
         value={search}
+        placeholder="Station Name"
         onChange={(e) => handleChange(e)}
         onSearch={(e) => {
           searchData(search);

@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect } from "react";
-import { List, Spin } from "antd";
+import { Spin, Card, Col } from "antd";
+import { Button } from "antd";
 
 //Redux
 import { connect, ConnectedProps } from "react-redux";
@@ -11,7 +12,7 @@ interface GetData {
   };
   getDataReducer: {
     loading: boolean;
-    data: {}[];
+    data: any;
   };
 }
 
@@ -29,18 +30,31 @@ const SearchedList = ({ loading, data, search, getData }: PropsFromRedux) => {
           style={{ display: "flex", justifyContent: "center", margin: "30px" }}
         />
       ) : (
-        <List
-          size="small"
-          bordered
-          dataSource={data}
-          renderItem={(response: any) => (
-            <List.Item>
-              <i className="fas fa-subway" style={{ color: "#1890ff" }}></i>{" "}
-              {response.Haltestelle}
-            </List.Item>
+        <Fragment>
+          {search ? (
+            data
+              .filter((el: any) =>
+                el.Haltestelle.toLowerCase().includes(search.toLowerCase())
+              )
+              .map((el: any) => (
+                <Button type="default" style={{ width: "100%" }}>
+                  <i
+                    className="fas fa-subway"
+                    style={{ color: "#1890ff", margin: "0 10px" }}
+                  ></i>
+                  {el.Haltestelle}
+                </Button>
+              ))
+          ) : (
+            <p style={{ margin: "20px" }}>
+              Please enter the name of the station
+            </p>
           )}
-        />
+        </Fragment>
       )}
+      <Col span={24}>
+        <Card bordered={true}>The stations</Card>
+      </Col>
     </Fragment>
   );
 };
@@ -58,3 +72,17 @@ const mapDispatchToProps = {
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 export default connector(SearchedList);
+
+/*
+        <List
+          size="small"
+          bordered
+          dataSource={data}
+          renderItem={(response: any) => (
+            <List.Item>
+              <i className="fas fa-subway" style={{ color: "#1890ff" }}></i>{" "}
+              {response.Haltestelle}
+            </List.Item>
+          )}
+        />
+        */
